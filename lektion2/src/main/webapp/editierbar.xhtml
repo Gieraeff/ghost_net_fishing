@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<title>Aufgabenliste</title>
+</h:head>
+<h:body>
+	<h1>Aufgabenliste ändern</h1>
+	<h:form>
+		<h:dataTable var="aufgabe" value="#{aufgabenListe.liste}">
+			<h:column>
+				<f:facet name="header">Text</f:facet>
+				<h:inputText value="#{aufgabe.text}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Person</f:facet>
+				<h:inputText value="#{aufgabe.person}" />
+			</h:column>
+		</h:dataTable>
+		<h:commandLink value="Speichern" action="#{controller.stopEdit()}" />
+	</h:form>
+</h:body>
+</html>
