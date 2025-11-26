@@ -1,2 +1,3 @@
-2025/11/18-19:28:13.663 549c Creating DB C:\myCode\JavaEE\ghost_net_fishing\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata since it was missing.
-2025/11/18-19:28:13.728 549c Reusing MANIFEST C:\myCode\JavaEE\ghost_net_fishing\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/11/18-19:36:36.340 4ce0 Reusing MANIFEST C:\myCode\JavaEE\ghost_net_fishing\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/MANIFEST-000001
+2025/11/18-19:36:36.347 4ce0 Recovering log #3
+2025/11/18-19:36:36.348 4ce0 Reusing old log C:\myCode\JavaEE\ghost_net_fishing\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\shared_proto_db\metadata/000003.log 
