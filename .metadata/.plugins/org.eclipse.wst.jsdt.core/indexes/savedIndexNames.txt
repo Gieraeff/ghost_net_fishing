@@ -1,0 +1,2 @@
+INDEX VERSION 1.4+C:\myCode\JavaEE\ghost_net_fishing\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2645250020.index
