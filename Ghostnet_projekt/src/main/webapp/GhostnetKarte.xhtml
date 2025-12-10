@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>Geisternetze – Karte</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+<h1>Noch zu bergende Geisternetze – Kartenansicht</h1>
+
+<h:form>
+    <h:commandButton value="Zurück zur Liste"
+                     action="Ghostnetliste.xhtml?faces-redirect=true" />
+</h:form>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin="">
+</script>
+
+<!-- JSF generiert hier die Markerliste -->
+<script type="text/javascript">
+    // JS-Array mit allen noch zu bergenden Netzen
+    var ghostnets = [
+    <ui:repeat value="#{ghostnetListe.zuBergendeListe}" var="g" varStatus="vs">
+        { lat: #{g.standort.latitude},
+          lon: #{g.standort.longitude},
+          text: "ID: #{g.ID} | Größe: #{g.größe} m² | Status: #{g.status}" }#{vs.last ? '' : ','}
+    </ui:repeat>
+    ];
+
+    // Karte initialisieren (Mittelpunkt erst mal auf 0/0, Zoom 2)
+    var map = L.map('map').setView([0, 0], 2);
+
+    // OpenStreetMap-Kacheln
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap-Mitwirkende'
+    }).addTo(map);
+
+    // Marker hinzufügen
+    if (ghostnets.length > 0) {
+        var bounds = [];
+        ghostnets.forEach(function(n) {
+            var marker = L.marker([n.lat, n.lon]).addTo(map);
+            marker.bindPopup(n.text);
+            bounds.push([n.lat, n.lon]);
+        });
+        map.fitBounds(bounds);
+    }
+</script>
+
+</h:body>
+</html>
