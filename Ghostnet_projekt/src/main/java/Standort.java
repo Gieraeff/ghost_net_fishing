@@ -1,10 +1,8 @@
 package Ghostpackage;
 
-import jakarta.persistence.*;
-
-@Embeddable
 public class Standort {
 
+	
 	 private double latitude;   // Breitengrad (DD)
 	 private double longitude;  // Längengrad (DD)
 

@@ -6,18 +6,12 @@ import jakarta.persistence.*;
 public class Ghostnet {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long ID;
-	
-	@Embedded
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int ID;
 	private Standort standort;
 	private Float größe;
-	
-	@Enumerated(EnumType.STRING)
 	Status status;
-	
-	@Embedded
-	Person bergendePerson;
+	Person BergendePerson;
 
 	public Ghostnet() {
 
@@ -29,20 +23,11 @@ public class Ghostnet {
 	}
 	
 	public Ghostnet(Standort standort, Float größe,Status status, Person bergendePerson) {
-		this.standort = standort;
+		super();
 		this.größe = größe;
-		this.status = status;
-		this.bergendePerson = bergendePerson;
+		this.BergendePerson = bergendePerson;
 
 	}
-	
-	public Long getId() {
-        return ID;
-    }
-
-    public void setId(Long id) {
-        this.ID = id;
-    }
 
 	public Standort getStandort() {
 		return standort;
@@ -56,7 +41,7 @@ public class Ghostnet {
 		return größe;
 	}
 
-	public void setGröße(Float größe) {
+	public void setgröße(Float größe) {
 		this.größe = größe;
 	}
 	
@@ -64,16 +49,7 @@ public class Ghostnet {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setstatus(Status status) {
 		this.status = status;
 	}
-	
-    public Person getBergendePerson() {
-        return bergendePerson;
-    }
-
-    public void setBergendePerson(Person bergendePerson) {
-        this.bergendePerson = bergendePerson;
-    }
-	
 }

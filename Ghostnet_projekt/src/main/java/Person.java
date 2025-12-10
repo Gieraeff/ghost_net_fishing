@@ -1,8 +1,5 @@
 package Ghostpackage;
 
-import jakarta.persistence.Embeddable;
-
-@Embeddable
 public class Person {
 
 	private String name;
@@ -27,7 +24,7 @@ public class Person {
 		this.name = name;
 	}
 	
-	public String getHandynummer()
+	public String getHanynummer()
 	{
 		return handynummer;
 	}
