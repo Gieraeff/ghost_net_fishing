@@ -45,6 +45,34 @@ public class Ghostnetliste implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<Ghostnet> getZuBergendeListe() {
+	    List<Ghostnet> result = new ArrayList<>();
+
+	    for (Ghostnet g : liste) {
+	        if (g.getStatus() == Status.gemeldet
+	                || g.getStatus() == Status.Bergung_bevostehend) {
+	            result.add(g);
+	        }
+	    }
+
+	    return result;
+	}
+	
+	public List<Ghostnet> meineBergungen(String benutzername) {
+	    List<Ghostnet> result = new ArrayList<>();
+
+	    for (Ghostnet g : liste) {
+	        if (g.getBergendePerson() != null &&
+	            g.getBergendePerson().getName() != null &&
+	            g.getBergendePerson().getName().equals(benutzername)) {
+
+	            result.add(g);
+	        }
+	    }
+
+	    return result;
+	}
 
 	public static Ghostnetliste getInstance() {
 		return instance;
