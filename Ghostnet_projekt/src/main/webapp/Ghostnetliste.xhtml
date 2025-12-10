@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
 </h:head>
 <h:body>
-	<h1>Ghostnet auflistung</h1>
+	<h1>Gheisternetze die noch zu bergen sind</h1>
 	<h:form id="form">
 	
 		<p:commandButton value="Neues Ghostnet melden"
@@ -16,8 +16,15 @@
                  icon="pi pi-plus" />
                      
          <br/><br/>
+         
+         <p:commandButton value="Offene Netze auf Karte anzeigen"
+                 action="GhostnetKarte.xhtml?faces-redirect=true"
+                 icon="pi pi-globe"
+                 ajax="false" />
+                 
+		<br/><br/>
                      
-		<p:dataTable value="#{ghostnetListe.liste}" var="ghostnet" lazy="false">
+		<p:dataTable value="#{ghostnetListe.zuBergendeListe}" var="ghostnet" lazy="false">
 			<f:facet name="header">
 				<h2>Ghostnetliste</h2>
 			</f:facet>
@@ -44,7 +51,7 @@
 		                     update=":bergungsDialogForm"
 		                     oncomplete="PF('bergungDialog').show()"
 		                     actionListener="#{ghostnetBergung.vorbereitenBergung(ghostnet)}"
-		                     disabled="#{ghostnet.bergendePerson != null}" />
+		                     disabled="#{ghostnet.bergendePerson = null}" />
 			</p:column>
 			<p:column headerText="Bergende Person">
 			    <h:outputText value="#{ghostnet.bergendePerson != null 
@@ -52,6 +59,30 @@
 			                           : 'Noch niemand'}" />
 			</p:column>
 
+		</p:dataTable>
+		
+		<h2>Meine übernommenen Bergungen</h2>
+
+		<p:dataTable value="#{ghostnetListe.meineBergungen(loginController.name)}"
+		             var="ghostnet"
+		             rows="10">
+		
+		    <p:column headerText="ID">
+		        <h:outputText value="#{ghostnet.Id}" />
+		    </p:column>
+		
+		    <p:column headerText="Standort">
+		        <h:outputText value="#{ghostnet.standort.latitude} / #{ghostnet.standort.longitude}" />
+		    </p:column>
+		
+		    <p:column headerText="Größe (m²)">
+		        <h:outputText value="#{ghostnet.größe}" />
+		    </p:column>
+		
+		    <p:column headerText="Status">
+		        <h:outputText value="#{ghostnet.status}" />
+		    </p:column>
+		
 		</p:dataTable>
 		
 	</h:form>
