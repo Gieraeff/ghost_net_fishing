@@ -10,7 +10,14 @@
 <h:body>
 	<h1>Ghostnet auflistung</h1>
 	<h:form>
-		<p:dataTable var="ghostnet" value="#{ghostnetListe.liste}">
+	
+		<p:commandButton value="Neues Ghostnet melden"
+                 action="ghostnetMelden"
+                 icon="pi pi-plus" />
+                     
+         <br/><br/>
+                     
+		<p:dataTable value="#{ghostnetListe.liste}" var="ghostnet" lazy="false">
 			<f:facet name="header">
 				<h2>Ghostnetliste</h2>
 			</f:facet>
@@ -39,7 +46,7 @@
             </p:column>
 
 		</p:dataTable>
-		<p:commandButton value="Ändern" icon="pi pi-pencil" action="#{controller.startEdit()}" />
+		
 	</h:form>
 </h:body>
 </html>
