@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Ghostnet Melden</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</h:head>
+
+<h:body>
+
+    <h1>Ghostnet melden</h1>
+
+    <h:form id="form">
+
+        <p:panel header="Standortdaten">
+
+            <!-- Latitude -->
+            <p:outputLabel for="lat" value="Latitude:" />
+            <p:inputText id="lat"
+                         value="#{ghostnetMelder.ghostnet.standort.latitude}"
+                         required="true"
+                         requiredMessage="Latitude ist ein Pflichtfeld.">
+                <f:validateDoubleRange min="-90" max="90" />
+            </p:inputText>
+            <p:message for="lat" />
+
+            <br/><br/>
+
+            <!-- Longitude -->
+            <p:outputLabel for="lon" value="Longitude:" />
+            <p:inputText id="lon"
+                         value="#{ghostnetMelder.ghostnet.standort.longitude}"
+                         required="true"
+                         requiredMessage="Longitude ist ein Pflichtfeld.">
+                <f:validateDoubleRange min="-180" max="180" />
+            </p:inputText>
+            <p:message for="lon" />
+
+            <br/><br/>
+
+            <!-- Standort automatisch -->
+            <p:commandButton value="Aktuellen Standort verwenden"
+                             onclick="getLocation(); return false;"
+                             icon="pi pi-map-marker" />
+
+        </p:panel>
+
+        <br/>
+
+        <!-- Ghostnet und daten -->
+        <p:panel header="Daten">
+
+            <p:outputLabel for="size" value="Größe (m²):" />
+            <p:inputNumber id="size"
+                           value="#{ghostnetMelder.ghostnet.größe}"
+                           required="true"
+                           decimalPlaces="2"
+                           minValue="0"
+                           requiredMessage="Bitte eine Größe eingeben." />
+            <p:message for="size" />
+
+            <br/><br/>
+
+            <p:outputLabel for="handynummer" value="Handynummer:" />
+            <p:inputText id="handynummer"
+                             value="#{ghostnetMelder.ghostnet.bergendePerson.handynummer}"
+                             required="true"
+                             requiredMessage="Telefonnumer ist ein Pflichtfeld."
+                             styleClass="placeholder-grey"
+                             placeholder="für nachfragen">
+            </p:inputText>
+            <p:message for="handynummer" />
+
+        </p:panel>
+
+        <br/>
+
+		<p:commandButton value="Melden"
+		                 action="#{ghostnetMelder.save}"
+		                 icon="pi pi-check"
+		                 ajax="false" />
+                         
+        <br/> <br/> 
+		<p:commandButton value="Cancel"
+		                 action="#{ghostnetMelder.zurück}"
+		                 icon="pi pi-times"
+		                 ajax="false" />
+
+    </h:form>
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(pos) {
+
+                    var lat = pos.coords.latitude;
+                    var lon = pos.coords.longitude;
+
+                    // Werte in die Felder setzen
+                    document.getElementById("form:lat").value = lat;
+                    document.getElementById("form:lon").value = lon;
+
+                    // PrimeFaces neu rendern
+                    if (PrimeFaces) {
+                        PrimeFaces.ab({source: 'form:lat'});
+                    }
+
+                }, function(err) {
+                    alert("Standort konnte nicht abgerufen werden: " + err.message);
+                });
+            } else {
+                alert("Dieses Gerät unterstützt keine Standortabfrage.");
+            }
+        }
+    </script>
+
+</h:body>
+</html>
