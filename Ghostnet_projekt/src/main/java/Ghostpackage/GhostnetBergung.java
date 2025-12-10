@@ -49,7 +49,7 @@ public class GhostnetBergung implements Serializable {
         try {
             tx.begin();
 
-            Ghostnet managed = em.find(Ghostnet.class, ausgewaehltesGhostnet.getId());
+            Ghostnet managed = em.find(Ghostnet.class, ausgewaehltesGhostnet.getID());
 
             if (managed.getBergendePerson() != null) {
                 FacesContext.getCurrentInstance().addMessage(
@@ -82,7 +82,7 @@ public class GhostnetBergung implements Serializable {
 
             // Liste im Speicher aktualisieren
             for (Ghostnet g : ghostnetliste.getListe()) {
-                if (g.getId().equals(managed.getId())) {
+                if (g.getID().equals(managed.getID())) {
                     g.setBergendePerson(bergendePerson);
                     g.setStatus(Status.Bergung_bevostehend);
                     break;

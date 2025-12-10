@@ -36,11 +36,11 @@ public class Ghostnet {
 
 	}
 	
-	public Long getId() {
+	public Long getID() {
         return ID;
     }
 
-    public void setId(Long id) {
+    public void setID(Long id) {
         this.ID = id;
     }
 
