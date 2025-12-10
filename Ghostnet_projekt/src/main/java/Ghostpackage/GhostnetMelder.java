@@ -41,7 +41,7 @@ public class GhostnetMelder implements Serializable {
 
 
     public String zurück() {
-    	return "Ghostnetliste.xhtml?faces-redirect=true";
+    	return "Ghostnetliste.xhtml";
     }
 
     // Speichern-Methode
