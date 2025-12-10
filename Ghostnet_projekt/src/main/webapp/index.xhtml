@@ -1,8 +1,50 @@
-<!DOCTYPE xhtml>
+<?xml version='1.0' encoding='UTF-8' ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.xhtml">
-      <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Ghost Net – Start</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+</h:head>
 <h:body>
-    <h:outputLink value="Ghostnetliste.xhtml">Zur Liste</h:outputLink>
+
+    <h1>Ghost Net Fishing</h1>
+
+    <!-- Login für bergende Personen -->
+    <h2>Bergende Person – Login</h2>
+    <h:form>
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="user" value="Benutzername:" />
+            <h:inputText id="user"
+             value="#{loginController.name}"
+             required="true"
+             requiredMessage="Bitte Benutzername eingeben." />
+
+<h:outputLabel for="pw" value="Passwort:" />
+			<h:inputSecret id="pw"
+			               value="#{loginController.passwort}"
+			               required="true"
+			               requiredMessage="Bitte Passwort eingeben." />
+        </h:panelGrid>
+
+        <br/>
+
+        <h:commandButton value="Anmelden"
+                         action="#{loginController.login}" />
+
+        <h:messages globalOnly="true" />
+    </h:form>
+
+    <hr/>
+
+    <!-- Gastbereich -->
+    <h2>Oder als Gast fortfahren</h2>
+    <h:form>
+        <h:commandButton value="Als Gast Netze melden und ansehen"
+                         action="GhostnetGast.xhtml?faces-redirect=true" />
+    </h:form>
+
 </h:body>
 </html>
