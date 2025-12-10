@@ -9,7 +9,7 @@
 </h:head>
 <h:body>
 	<h1>Ghostnet auflistung</h1>
-	<h:form>
+	<h:form id="form">
 	
 		<p:commandButton value="Neues Ghostnet melden"
                  action="ghostnetMelden"
@@ -38,15 +38,57 @@
                 <p:outputLabel value="#{ghostnet.status}" />
             </p:column>
 
-            
-            <p:column headerText="Bergende Person">
-                <p:outputLabel value="#{ghostnet.bergendePerson != null 
-                    ? ghostnet.bergendePerson.name 
-                    : '–'}" />
-            </p:column>
+            <p:column headerText="Aktion">
+		    <p:commandButton value="Bergung übernehmen"
+		                     icon="pi pi-anchor"
+		                     update=":bergungsDialogForm"
+		                     oncomplete="PF('bergungDialog').show()"
+		                     actionListener="#{ghostnetBergung.vorbereitenBergung(ghostnet)}"
+		                     disabled="#{ghostnet.bergendePerson != null}" />
+			</p:column>
+			<p:column headerText="Bergende Person">
+			    <h:outputText value="#{ghostnet.bergendePerson != null 
+			                           ? ghostnet.bergendePerson.name 
+			                           : 'Noch niemand'}" />
+			</p:column>
 
 		</p:dataTable>
 		
 	</h:form>
+	
+	<h:form id="bergungsDialogForm">
+    <p:dialog id="bergungDialog"
+              widgetVar="bergungDialog"
+              modal="true"
+              header="Bergung übernehmen"
+              closable="true">
+
+        <h:panelGrid columns="2" cellpadding="5">
+
+            <h:outputLabel for="name" value="Name der bergenden Person:" />
+            <h:inputText id="name"
+                         value="#{ghostnetBergung.bergendePerson.name}"
+                         required="true"
+                         requiredMessage="Bitte einen Namen angeben." />
+
+            <h:outputLabel for="handy" value="Handynummer:" />
+            <h:inputText id="handy"
+                         value="#{ghostnetBergung.bergendePerson.handynummer}" />
+        </h:panelGrid>
+
+        <br/>
+
+        <p:commandButton value="Speichern"
+                         action="#{ghostnetBergung.bergungSpeichern}"
+                         update=":form :bergungsDialogForm"
+                         oncomplete="PF('bergungDialog').hide()" />
+
+        <p:commandButton value="Abbrechen"
+                         type="button"
+                         onclick="PF('bergungDialog').hide()" />
+
+    </p:dialog>
+</h:form>
+
 </h:body>
 </html>
