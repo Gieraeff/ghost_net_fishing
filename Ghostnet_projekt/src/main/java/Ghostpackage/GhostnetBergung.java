@@ -24,13 +24,12 @@ public class GhostnetBergung implements Serializable {
     private EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("GhostnetAppPersistenceUnit");
 
-    // Das ausgewählte Netz, für das die Bergung übernommen wird
     private Ghostnet ausgewaehltesGhostnet;
 
-    // Die bergende Person (Name + Handynummer)
+    
     private Person bergendePerson = new Person();
 
-    /** Wird aus der Tabelle aufgerufen, um das Netz vorzubereiten */
+    
     public void vorbereitenBergung(Ghostnet ghostnet) {
         this.ausgewaehltesGhostnet = ghostnet;
         this.bergendePerson = new Person(); // leeres Formular

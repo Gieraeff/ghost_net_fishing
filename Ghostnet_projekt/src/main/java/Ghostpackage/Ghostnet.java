@@ -22,11 +22,7 @@ public class Ghostnet {
 	public Ghostnet() {
 
 	}
-	
-	public Ghostnet(Standort standort, Float größe) {
-		this.standort = standort;
-		this.größe = größe;
-	}
+
 	
 	public Ghostnet(Standort standort, Float größe,Status status, Person bergendePerson) {
 		this.standort = standort;

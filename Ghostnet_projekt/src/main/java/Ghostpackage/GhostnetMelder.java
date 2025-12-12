@@ -14,7 +14,7 @@ import Ghostpackage.Ghostnet;
 @ViewScoped
 public class GhostnetMelder implements Serializable {
 
-	private Ghostnet ghostnet = new Ghostnet(); // Neues Ghostnet für das Formular
+	private Ghostnet ghostnet = new Ghostnet(); 
     
 	@Inject 
 	private Ghostnetliste ghostnetliste;
