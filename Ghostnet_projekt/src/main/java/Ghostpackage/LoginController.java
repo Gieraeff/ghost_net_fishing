@@ -35,15 +35,7 @@ public class LoginController implements Serializable {
         for (Benutzer b : benutzerListe) {
             if (b.equals(eingegeben)) {
                 eingeloggt = true;
-
-                // Rollenlogik, falls du später unterscheiden willst:
-                if ("Admin".equals(b.getName())) {
-                    // z.B. Admin-Seite
-                    return "Ghostnetliste.xhtml?faces-redirect=true";
-                } else {
-                    // normale bergende Person → Liste
-                    return "Ghostnetliste.xhtml?faces-redirect=true";
-                }
+                return "Ghostnetliste.xhtml?faces-redirect=true"; 
             }
         }
 
