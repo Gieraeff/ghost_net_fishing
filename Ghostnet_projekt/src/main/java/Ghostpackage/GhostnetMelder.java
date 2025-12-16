@@ -51,7 +51,7 @@ public class GhostnetMelder implements Serializable {
 
         try {
             t.begin();
-            em.persist(ghostnet);   // <- Dein neues Ghostnet speichern!
+            em.persist(ghostnet);   //Persist nicht merge, neues objekt erzeugen
             t.commit();
 
             // zusätzlich in deine Liste einfügen
