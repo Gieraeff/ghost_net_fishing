@@ -35,8 +35,7 @@ public class LoginController implements Serializable {
         for (Benutzer b : benutzerListe) {
             if (b.equals(eingegeben)) {
                 eingeloggt = true;
-               return "Ghostnetliste.xhtml?faces-redirect=true";
-                
+               return "Ghostnetliste.xhtml?faces-redirect=true"; 
             }
         }
 
