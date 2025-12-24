@@ -24,7 +24,6 @@
                          value="#{ghostnetMelder.ghostnet.standort.latitude}"
                          required="true"
                          requiredMessage="Latitude ist ein Pflichtfeld.">
-                <f:validateDoubleRange min="-90" max="90" />
             </p:inputText>
             <p:message for="lat" />
 
@@ -36,7 +35,6 @@
                          value="#{ghostnetMelder.ghostnet.standort.longitude}"
                          required="true"
                          requiredMessage="Longitude ist ein Pflichtfeld.">
-                <f:validateDoubleRange min="-180" max="180" />
             </p:inputText>
             <p:message for="lon" />
 

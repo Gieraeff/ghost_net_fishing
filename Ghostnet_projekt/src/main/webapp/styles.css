@@ -12,7 +12,7 @@ h1 {
     color: #333;
 }
 
-placeholder-grey::placeholder {
-    color: #999;   /* oder ein anderes Grau */
-    opacity: 1;    /* wichtig für Firefox */
+p*laceholder-grey::placeholder {
+    color: #999; 
+    opacity: 1;   
 }

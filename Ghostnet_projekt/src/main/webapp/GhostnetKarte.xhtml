@@ -48,16 +48,12 @@
     </ui:repeat>
     ];
 
-    // Karte initialisieren (Mittelpunkt erst mal auf 0/0, Zoom 2)
     var map = L.map('map').setView([0, 0], 2);
-
-    // OpenStreetMap-Kacheln
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© OpenStreetMap-Mitwirkende'
     }).addTo(map);
 
-    // Marker hinzufügen
     if (ghostnets.length > 0) {
         var bounds = [];
         ghostnets.forEach(function(n) {
