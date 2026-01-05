@@ -20,6 +20,9 @@ public class GhostnetBergung implements Serializable {
 
     @Inject
     private Ghostnetliste ghostnetliste;
+    
+    @Inject
+    private LoginController loginController;
 
     private EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("GhostnetAppPersistenceUnit");
@@ -32,13 +35,14 @@ public class GhostnetBergung implements Serializable {
     
     public void vorbereitenBergung(Ghostnet ghostnet) {
         this.ausgewaehltesGhostnet = ghostnet;
-        this.bergendePerson = new Person(); // leeres Formular
+        this.bergendePerson = new Person();
+        this.bergendePerson.setName(loginController.getName());
     }
 
     /** Speichert die bergende Person und setzt den Status */
     public String bergungSpeichern() {
 
-        if (ausgewaehltesGhostnet == null) {
+        if (ausgewaehltesGhostnet == null || ausgewaehltesGhostnet.getID() == null) {
             return null;
         }
 
@@ -50,7 +54,9 @@ public class GhostnetBergung implements Serializable {
 
             Ghostnet managed = em.find(Ghostnet.class, ausgewaehltesGhostnet.getID());
 
-            if (managed.getBergendePerson() != null) {
+            if (managed.getBergendePerson() != null
+            	    && managed.getBergendePerson().getName() != null
+            	    && !managed.getBergendePerson().getName().isBlank()){
                 FacesContext.getCurrentInstance().addMessage(
                         null,
                         new FacesMessage(FacesMessage.SEVERITY_WARN,
@@ -61,7 +67,7 @@ public class GhostnetBergung implements Serializable {
                 return null;
             }
 
-            // Optional: nur übernehmen, wenn Status gemeldet ist
+            
             if (managed.getStatus() != Status.gemeldet) {
                 FacesContext.getCurrentInstance().addMessage(
                         null,
@@ -72,6 +78,19 @@ public class GhostnetBergung implements Serializable {
                 tx.rollback();
                 return null;
             }
+
+            String user = loginController.getName();
+            if (user == null || user.isBlank()) {
+                FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Nicht eingeloggt",
+                        "Bitte erneut einloggen."));
+                tx.rollback();
+                return null;
+            }
+            
+            //if (bergendePerson == null) bergendePerson = new Person();
+            bergendePerson.setName(user.trim()); // <-- KEY FIX
 
             managed.setBergendePerson(bergendePerson);
             managed.setStatus(Status.Bergung_bevostehend);

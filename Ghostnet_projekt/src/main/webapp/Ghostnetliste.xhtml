@@ -24,7 +24,7 @@
                  
 		<br/><br/>
                      
-		<p:dataTable value="#{ghostnetListe.zuBergendeListe}" var="ghostnet" lazy="false">
+		<p:dataTable value="#{ghostnetListe.allGhostnets}" var="ghostnet" lazy="false">
 			<f:facet name="header">
 				<h2>Ghostnetliste</h2>
 			</f:facet>
@@ -51,24 +51,37 @@
 		                     update=":bergungsDialogForm"
 		                     oncomplete="PF('bergungDialog').show()"
 		                     actionListener="#{ghostnetBergung.vorbereitenBergung(ghostnet)}"
-		                     disabled="#{ghostnet.bergendePerson = null}" />
+		                    disabled="#{not empty ghostnet.bergendePerson and not empty ghostnet.bergendePerson.name}" />
 			</p:column>
-			<p:column headerText="Bergende Person">
-			    <h:outputText value="#{ghostnet.bergendePerson != null 
-			                           ? ghostnet.bergendePerson.name 
-			                           : 'Noch niemand'}" />
-			</p:column>
+        	<p:column headerText="Bergende Person">
+            	<h:outputText
+                value="#{empty ghostnet.bergendePerson or empty ghostnet.bergendePerson.name
+                         ? 'Noch niemand'
+                         : ghostnet.bergendePerson.name}" />
+        	</p:column>
+			<p:column headerText="Meldende Person">
+            <h:outputText
+                value="#{empty ghostnet.meldendePerson or empty ghostnet.meldendePerson.name
+                         ? 'Anonym'
+                         : ghostnet.meldendePerson.name}" />
+        	</p:column>
+        	<p:column headerText="Meldende Handy">
+            	<h:outputText
+                value="#{empty ghostnet.meldendePerson or empty ghostnet.meldendePerson.handynummer
+                         ? '-'
+                         : ghostnet.meldendePerson.handynummer}" />
+       		</p:column>
 
 		</p:dataTable>
 		
 		<h2>Meine übernommenen Bergungen</h2>
 
-		<p:dataTable value="#{ghostnetListe.meineBergungen(loginController.name)}"
+		<p:dataTable value="#{ghostnetListe.meineBergungen}"
 		             var="ghostnet"
 		             rows="10">
 		
 		    <p:column headerText="ID">
-		        <h:outputText value="#{ghostnet.Id}" />
+		        <h:outputText value="#{ghostnet.ID}" />
 		    </p:column>
 		
 		    <p:column headerText="Standort">
@@ -81,6 +94,16 @@
 		
 		    <p:column headerText="Status">
 		        <h:outputText value="#{ghostnet.status}" />
+		    </p:column>
+		    
+		    <p:column headerText="Meldende Person">
+				<h:outputText value="#{empty ghostnet.meldendePerson or empty ghostnet.meldendePerson.name
+          ? 'Anonym'
+          : ghostnet.meldendePerson.name}" />
+		    </p:column>
+		
+		    <p:column headerText="Bergende Person">
+				<h:outputText value="#{ghostnet.bergendePerson.name}" />
 		    </p:column>
 		
 		</p:dataTable>
@@ -95,12 +118,6 @@
               closable="true">
 
         <h:panelGrid columns="2" cellpadding="5">
-
-            <h:outputLabel for="name" value="Name der bergenden Person:" />
-            <h:inputText id="name"
-                         value="#{ghostnetBergung.bergendePerson.name}"
-                         required="true"
-                         requiredMessage="Bitte einen Namen angeben." />
 
             <h:outputLabel for="handy" value="Handynummer:" />
             <h:inputText id="handy"

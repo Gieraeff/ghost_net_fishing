@@ -41,7 +41,7 @@
 <script type="text/javascript">
     // JS-Array mit allen noch zu bergenden Netzen
     var ghostnets = [
-    <ui:repeat value="#{ghostnetListe.zuBergendeListe}" var="g" varStatus="vs">
+    <ui:repeat value="#{ghostnetListe.allGhostnets}" var="g" varStatus="vs">
         { lat: #{g.standort.latitude},
           lon: #{g.standort.longitude},
           text: "ID: #{g.ID} | Größe: #{g.größe} m² | Status: #{g.status}" }#{vs.last ? '' : ','}

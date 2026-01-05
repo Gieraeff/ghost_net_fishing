@@ -17,7 +17,18 @@ public class Ghostnet {
 	Status status;
 	
 	@Embedded
-	Person bergendePerson;
+	@AttributeOverrides({
+	    @AttributeOverride(name = "name", column = @Column(name = "meldende_name")),
+	    @AttributeOverride(name = "handynummer", column = @Column(name = "meldende_handynummer"))
+	})
+	private Person meldendePerson;
+
+	@Embedded
+	@AttributeOverrides({
+	    @AttributeOverride(name = "name", column = @Column(name = "bergende_name")),
+	    @AttributeOverride(name = "handynummer", column = @Column(name = "bergende_handynummer"))
+	})
+	private Person bergendePerson;
 
 	public Ghostnet() {
 
@@ -64,12 +75,19 @@ public class Ghostnet {
 		this.status = status;
 	}
 	
-    public Person getBergendePerson() {
-        return bergendePerson;
-    }
+	public Person getMeldendePerson() {
+		return meldendePerson; 
+	}
+	public void setMeldendePerson(Person meldendePerson) {
+		this.meldendePerson = meldendePerson; 
+	}
 
-    public void setBergendePerson(Person bergendePerson) {
-        this.bergendePerson = bergendePerson;
-    }
+	public Person getBergendePerson() { 
+		return bergendePerson; 
+	}
+	
+	public void setBergendePerson(Person bergendePerson) {
+		this.bergendePerson = bergendePerson; 
+	}
 	
 }

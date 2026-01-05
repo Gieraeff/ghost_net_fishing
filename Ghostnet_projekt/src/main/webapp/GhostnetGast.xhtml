@@ -23,7 +23,7 @@
         <br/><br/>
 
         <!-- Liste aller gemeldeten Netze (nur lesen) -->
-        <p:dataTable value="#{ghostnetListe.liste}" var="ghostnet" rows="10">
+        <p:dataTable value="#{ghostnetListe.allGhostnets}" var="ghostnet" rows="10">
 
             <p:column headerText="Standort">
                 <h:outputText value="#{ghostnet.standort.latitude} / #{ghostnet.standort.longitude}" />

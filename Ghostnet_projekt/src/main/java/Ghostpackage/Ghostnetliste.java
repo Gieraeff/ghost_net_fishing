@@ -5,11 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+
 
 @Named("ghostnetListe")
 @ApplicationScoped
 public class Ghostnetliste implements Serializable {
+	@Inject
+	private LoginController loginController;
+	
 	private static Ghostnetliste instance = new Ghostnetliste();
 	private List<Ghostnet> liste = new ArrayList<Ghostnet>();
 	
@@ -17,61 +26,33 @@ public class Ghostnetliste implements Serializable {
 
 	//todo: koordinationen format ergänzen
 	
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("GhostnetAppPersistenceUnit");
 	
 	public Ghostnetliste() {
-		try {
-			liste.add(new Ghostnet(
-					new Standort(47.123456, 9.876543), 
-					2.5f, 
-					Status.gemeldet,
-					new Person("Kevin", "+430660288")));
-			
-			liste.add(new Ghostnet(
-					new Standort(88.123456, 66.876543), 
-					2.5f, 
-					Status.gemeldet,
-					new Person("gustel", "+43000060288")));
-			
-			liste.add(new Ghostnet(
-					new Standort(69.123456, 8.876543), 
-					7f, 
-					Status.gemeldet,
-					new Person("franz", "+430888888")));
-			
-			liste.add(new Ghostnet(new Standort(25.4259863, 12.582568), 4f, Status.gemeldet,new Person()));
-			//liste.add(new Aufgabe("tue das", "Nina", dateFormat.parse("10.09.2024"), false, 8));
-			//liste.add(new Aufgabe("tue jenes", "Jessie", dateFormat.parse("17.09.2024"), false, 22));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
-	public List<Ghostnet> getZuBergendeListe() {
-	    List<Ghostnet> result = new ArrayList<>();
-
-	    for (Ghostnet g : liste) {
-	        if (g.getStatus() == Status.gemeldet
-	                || g.getStatus() == Status.Bergung_bevostehend) {
-	            result.add(g);
-	        }
+	public List<Ghostnet> getAllGhostnets() {
+	    EntityManager em = emf.createEntityManager();
+	    try {
+	        return em.createQuery("SELECT g FROM Ghostnet g ORDER BY g.id DESC", Ghostnet.class)
+	                 .getResultList();
+	    } finally {
+	        em.close();
 	    }
-
-	    return result;
 	}
 	
-	public List<Ghostnet> meineBergungen(String benutzername) {
-	    List<Ghostnet> result = new ArrayList<>();
-
-	    for (Ghostnet g : liste) {
-	        if (g.getBergendePerson() != null &&
-	            g.getBergendePerson().getName() != null &&
-	            g.getBergendePerson().getName().equals(benutzername)) {
-
-	            result.add(g);
-	        }
+	public List<Ghostnet> getMeineBergungen() {
+	    EntityManager em = emf.createEntityManager();
+	    try {
+	        return em.createQuery(
+	            "SELECT g FROM Ghostnet g " +
+	            "WHERE g.bergendePerson.name = :name",
+	            Ghostnet.class)
+	            .setParameter("name", loginController.getName())
+	            .getResultList();
+	    } finally {
+	        em.close();
 	    }
-
-	    return result;
 	}
 
 	public static Ghostnetliste getInstance() {

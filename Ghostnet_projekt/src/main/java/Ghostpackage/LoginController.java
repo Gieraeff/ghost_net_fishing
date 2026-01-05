@@ -39,7 +39,6 @@ public class LoginController implements Serializable {
             }
         }
 
-        // Wenn keine Übereinstimmung gefunden
         FacesContext.getCurrentInstance().addMessage(
                 null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -47,7 +46,7 @@ public class LoginController implements Serializable {
                         "Benutzername oder Passwort ist falsch.")
         );
         eingeloggt = false;
-        return null; // auf Loginseite bleiben
+        return null;
     }
 
     public String logout() {

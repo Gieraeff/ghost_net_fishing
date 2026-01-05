@@ -63,10 +63,19 @@
 
             <br/><br/>
 
+            <p:outputLabel for="name" value="Name:" />
+            <p:inputText id="name"
+                             value="#{ghostnetMelder.meldendePersonForForm.name}"
+                             requiredMessage="Telefonnumer ist ein Pflichtfeld."
+                             styleClass="placeholder-grey"
+                             placeholder="für nachfragen">
+            </p:inputText>
+
+			<br/><br/>
+
             <p:outputLabel for="handynummer" value="Handynummer:" />
             <p:inputText id="handynummer"
-                             value="#{ghostnetMelder.ghostnet.bergendePerson.handynummer}"
-                             required="true"
+                             value="#{ghostnetMelder.meldendePersonForForm.handynummer}"
                              requiredMessage="Telefonnumer ist ein Pflichtfeld."
                              styleClass="placeholder-grey"
                              placeholder="für nachfragen">
