@@ -63,7 +63,7 @@ public class GhostnetMelder implements Serializable {
             if (isBlankPerson(ghostnet.getMeldendePerson())) {
                 ghostnet.setMeldendePerson(null);
             } else {
-                // Optional: trimmen (damit "   " nicht als Name gilt)
+                
                 if (ghostnet.getMeldendePerson().getName() != null) {
                     ghostnet.getMeldendePerson().setName(ghostnet.getMeldendePerson().getName().trim());
                 }
